@@ -1,4 +1,4 @@
-﻿#include "PluginUtils/PluginUtils.h"
+﻿#include "PluginUtils/Scanning.h"
 
 // Required for GWCA/Utilities/Scanner.h to be imported
 // Why, GWCA, why?
@@ -10,11 +10,11 @@
 #include <ranges>
 #include <string>
 
-uintptr_t PluginUtils::SiggaScan(std::string_view sigga_pattern, int offset)
+void* PluginUtils::SiggaScan(std::string_view sigga_pattern, int offset)
 {
     std::string pattern;
     std::string mask;
-    
+
     static constexpr ctll::fixed_string byte_regex = "[0-9a-fA-F]{2}";
     static constexpr ctll::fixed_string wild_regex = "\\?+";
 
@@ -38,5 +38,5 @@ uintptr_t PluginUtils::SiggaScan(std::string_view sigga_pattern, int offset)
         }
     }
 
-    return GW::Scanner::Find(pattern.c_str(), mask.c_str(), offset);    
+    return reinterpret_cast<void*>(GW::Scanner::Find(pattern.c_str(), mask.c_str(), offset));      // NOLINT(performance-no-int-to-ptr)
 }

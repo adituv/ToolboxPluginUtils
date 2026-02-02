@@ -4,11 +4,13 @@
 // Why, GWCA, why?
 #include <Windows.h>
 
-#include <GWCA/Utilities/Scanner.h>
-
-#include <ctre.hpp>
 #include <ranges>
 #include <string>
+
+#include <ctre.hpp>
+#include <GWCA/Utilities/Scanner.h>
+
+#include "PluginUtils/Logging.h"
 
 void* PluginUtils::SiggaScan(std::string_view sigga_pattern, int offset)
 {
@@ -33,8 +35,8 @@ void* PluginUtils::SiggaScan(std::string_view sigga_pattern, int offset)
         }
         else
         {
-            // TODO: debug log output
-            return 0;
+            Logging::Error(std::format(L"SiggaScan: Failed to parse {} as byte pattern", byte));
+            return nullptr;
         }
     }
 

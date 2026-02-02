@@ -22,7 +22,6 @@ namespace PluginUtils::GameChat
     };
 
     void SetPrefix(const wchar_t* prefix);
-
-    void WriteMessage(const wchar_t* message, uint32_t color = COLOR_DEFAULT, bool transient = false);
-    void WriteMessage(const std::wstring& message, uint32_t color = COLOR_DEFAULT, bool transient = false);
+    
+    void WriteMessage(std::wstring_view message, uint32_t color = COLOR_DEFAULT, bool transient = false);
 }
